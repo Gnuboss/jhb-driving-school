@@ -277,7 +277,7 @@ export const faq = {
     {
       question: "Manual or automatic — which should I choose?",
       answer:
-        "A manual (code 08) licence allows you to drive both manual and automatic vehicles. An automatic (code 10) licence restricts you to automatics only. We recommend manual unless you have a specific medical reason or exclusively drive an automatic. Our training vehicle is manual.",
+        "A manual (code 08) licence allows you to drive both manual and automatic vehicles. An automatic (code 08) licence restricts you to automatics only. We recommend manual unless you have a specific medical reason or exclusively drive an automatic. Our training vehicle is manual.",
     },
     {
       question: "What happens if I fail my test?",
