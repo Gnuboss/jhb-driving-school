@@ -22,15 +22,18 @@ const { headline, description, button } = cta;
 				{description}
 			</p>
 
-			<!-- Email Signup Form or CTA Button -->
+<!-- Email Signup Form or CTA Button -->
 <form 
-  name="callback"
+  action="https://web3forms.com" 
   method="POST"
-  data-netlify="true" 
-  action="/thank-you"
   class="flex flex-col gap-4 max-w-lg mx-auto"
 >
-  <input type="hidden" name="form-name" value="callback" />
+  <!-- Web3Forms Configuration Inputs -->
+  <input type="hidden" name="access_key" value="caf388ec-1661-4234-98ce-0f2042bd0dee" />
+  <input type="hidden" name="from_name" value="JHB Driving School Website" />
+  <input type="hidden" name="subject" value="New Callback Request" />
+  <input type="hidden" name="redirect" value="https://jhbdrivingschool.co.za/thank-you" />
+
   <input
     type="text"
     name="name"
