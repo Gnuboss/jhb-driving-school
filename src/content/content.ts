@@ -21,7 +21,7 @@ export const siteConfig = {
     name: "Hey! Another Driving School",
     alternateName: "JHB Driving School",
     telephone: "+27829502858",
-    email: "info@jhbdrivingschool.com",
+    email: "info@jhbdrivingschool.co.za",
     address: {
       streetAddress: "266 Riverglades Estate, Juweel Street",
       addressLocality: "Jukskei Park",
@@ -317,7 +317,7 @@ legal: {
   links: [
     { label: "Jacques — 082 950 2858", href: "tel:+27829502858" },
     { label: "Sharon — 071 183 3500",  href: "tel:+27711833500" },
-    { label: "info@jhbdrivingschool.com", href: "mailto:info@jhbdrivingschool.com" },
+    { label: "info@jhbdrivingschool.co.za", href: "mailto:info@jhbdrivingschool.co.za" },
   ],
 },
   },
