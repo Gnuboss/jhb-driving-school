@@ -72,6 +72,19 @@ export const header = {
 };
 
 // -----------------------------------------------------------
+// TOP BAR — thin strip above the header
+// Left: qualifier that reinforces the <title> keywords
+// Right: tap-to-call numbers
+// -----------------------------------------------------------
+export const topBar = {
+  qualifier: "K-53 driving lessons in Johannesburg · Randburg, Sandton & Fourways",
+  contacts: [
+    { name: "Jacques", display: "082 950 2858", href: "tel:+27829502858" },
+    { name: "Sharon",  display: "071 183 3500", href: "tel:+27711833500" },
+  ],
+};
+
+// -----------------------------------------------------------
 // HERO
 // Chase Hughes: Pattern interrupt headline + identity statement
 // + authority signal + low-friction CTA

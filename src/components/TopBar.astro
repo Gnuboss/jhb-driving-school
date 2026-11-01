@@ -1,0 +1,28 @@
+---
+import { topBar } from "@/content/content";
+---
+
+<div class="bg-foreground text-background text-xs sm:text-sm">
+	<div
+		class="mx-auto flex max-w-7xl items-center justify-center gap-x-6 px-4 py-2 sm:justify-between sm:px-6 lg:px-8"
+	>
+		<!-- Qualifier (hidden on phones to keep the numbers on one line) -->
+		<p class="hidden font-medium sm:block">{topBar.qualifier}</p>
+
+		<!-- Tap-to-call numbers -->
+		<nav aria-label="Call us" class="flex items-center gap-x-4 sm:gap-x-5">
+			{
+				topBar.contacts.map((contact) => (
+					<a
+						href={contact.href}
+						title={`Call ${contact.name} at Hey! Another Driving School`}
+						aria-label={`Call ${contact.name} on ${contact.display}`}
+						class="whitespace-nowrap font-semibold hover:underline"
+					>
+						<span class="font-normal opacity-80">{contact.name}</span> {contact.display}
+					</a>
+				))
+			}
+		</nav>
+	</div>
+</div>
