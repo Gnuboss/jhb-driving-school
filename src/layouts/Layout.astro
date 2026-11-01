@@ -1,5 +1,5 @@
 ---
-import { faq, siteConfig } from "@/content/content";
+import { faq, siteConfig, topBar } from "@/content/content";
 import "@/styles/starwind.css";
 
 const { image, schema } = siteConfig;
@@ -28,6 +28,15 @@ const businessSchema = {
 	alternateName: schema.alternateName,
 	url: siteConfig.url,
 	telephone: schema.telephone,
+	// Both instructors' numbers, so schema matches what the page and the Google profile list
+	contactPoint: topBar.contacts.map((c) => ({
+		"@type": "ContactPoint",
+		name: c.name,
+		telephone: c.href.replace("tel:", ""),
+		contactType: "customer service",
+		areaServed: "ZA",
+		availableLanguage: "English",
+	})),
 	email: schema.email,
 	image: new URL("/hero.jpg", baseURL).toString(),
 	address: { "@type": "PostalAddress", ...schema.address },
