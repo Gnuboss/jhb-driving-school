@@ -13,7 +13,7 @@ export const siteConfig = {
   name: "Hey! Another Driving School",
   description: "Passionate instructors. Real results. K-53 driving lessons across Northern Gauteng.",
   title: "Hey! Another Driving School | K-53 Lessons in Johannesburg",
-  image: "/og-image.png",
+  image: "/og-image.jpg",
   url: "https://jhbdrivingschool.co.za",
   // Used in JSON-LD LocalBusiness schema (see Layout.astro)
   schema: {
