@@ -12,7 +12,12 @@
 export const siteConfig = {
   name: "Hey! Another Driving School",
   description: "Passionate instructors. Real results. K-53 driving lessons across Northern Gauteng.",
-  title: "Hey! Another Driving School | K-53 Lessons in Johannesburg",
+  // <title>: primary keyword + location first, brand last (~590px, fits Google's ~600px limit)
+  title: "K-53 Driving Lessons Johannesburg | Hey! Another Driving School",
+  // Meta description (≤155 chars): benefit + service areas + call to action.
+  // (`description` above is the short brand line used in the footer.)
+  metaDescription:
+    "Pass your K-53 licence first time. Personal driving lessons in Randburg, Sandton & Fourways with pick-up included. Call Jacques or Sharon today.",
   image: "/og-image.jpg",
   url: "https://jhbdrivingschool.co.za",
   // Used in JSON-LD LocalBusiness schema (see Layout.astro)
