@@ -1,12 +1,58 @@
 ---
-import { siteConfig } from "@/content/content";
+import { faq, siteConfig } from "@/content/content";
 import "@/styles/starwind.css";
 
-const { title, description, image } = siteConfig;
+const { title, description, image, schema } = siteConfig;
+const { noindex = false } = Astro.props;
 
 const baseURL = Astro.site ?? Astro.url.origin;
 const canonicalURL = new URL(Astro.url.pathname, baseURL);
 const ogImageURL = new URL(image, baseURL);
+
+// JSON-LD: business details (DrivingSchool) — all values come from content.ts
+const businessSchema = {
+	"@context": "https://schema.org",
+	"@type": schema.type,
+	name: schema.name,
+	alternateName: schema.alternateName,
+	url: siteConfig.url,
+	telephone: schema.telephone,
+	email: schema.email,
+	image: new URL("/hero.jpg", baseURL).toString(),
+	address: { "@type": "PostalAddress", ...schema.address },
+	geo: { "@type": "GeoCoordinates", ...schema.geo },
+	openingHoursSpecification: [
+		{
+			"@type": "OpeningHoursSpecification",
+			dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+			opens: "08:00",
+			closes: "18:30",
+		},
+		{
+			"@type": "OpeningHoursSpecification",
+			dayOfWeek: "Saturday",
+			opens: "09:00",
+			closes: "15:00",
+		},
+	],
+	priceRange: schema.priceRange,
+	areaServed: schema.areaServed.map((name) => ({ "@type": "City", name })),
+	...(schema.sameAs.length > 0 && { sameAs: schema.sameAs }),
+};
+
+// JSON-LD: FAQ rich results — generated from the faq block in content.ts
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faq.items.map((item) => ({
+		"@type": "Question",
+		name: item.question,
+		acceptedAnswer: { "@type": "Answer", text: item.answer },
+	})),
+};
+
+// Analytics only fires on the live build, so local `pnpm dev` visits don't pollute GA4
+const GA_ID = "G-DC3762M625";
 ---
 
 <!doctype html>
@@ -22,6 +68,13 @@ const ogImageURL = new URL(image, baseURL);
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonicalURL} />
 
+		<!-- Google Search Console verification -->
+		<meta name="google-site-verification" content="ehZk5ejiLaIXEpVPbTbkmG_XvrW8XI5HLb_AhVyN05Y" />
+
+		<!-- Structured data -->
+		<script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
 		<!-- Open Graph Tags -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
@@ -36,12 +89,28 @@ const ogImageURL = new URL(image, baseURL);
 		<meta name="twitter:image" content={ogImageURL} />
 
 		<!-- Favicon & Icons -->
-		<link rel="icon" type="image/svg+xml" href="/jhb-driving-school/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
 		<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
 
 		<!-- No-index for Development (optional) -->
-		{import.meta.env.DEV && <meta name="robots" content="noindex, nofollow" />}
+		{(import.meta.env.DEV || noindex) && <meta name="robots" content="noindex, nofollow" />}
+
+		<!-- Google tag (GA4) — production only -->
+		{
+			import.meta.env.PROD && (
+				<>
+					<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+					<script is:inline define:vars={{ GA_ID }}>
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+						gtag('config', GA_ID);
+					</script>
+				</>
+			)
+		}
 
 		<!-- Light mode: inline script runs before first paint to avoid FOUC -->
 <script is:inline>
