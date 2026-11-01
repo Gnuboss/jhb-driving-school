@@ -40,7 +40,6 @@ const businessSchema = {
 	email: schema.email,
 	image: new URL("/hero.jpg", baseURL).toString(),
 	address: { "@type": "PostalAddress", ...schema.address },
-	geo: { "@type": "GeoCoordinates", ...schema.geo },
 	openingHoursSpecification: [
 		{
 			"@type": "OpeningHoursSpecification",

@@ -28,15 +28,11 @@ export const siteConfig = {
     telephone: "+27829502858",
     email: "info@jhbdrivingschool.co.za",
     address: {
-      streetAddress: "266 Riverglades Estate, Juweel Street",
+      // Service-area business operating from a home: no street address or GPS point is published.
       addressLocality: "Jukskei Park",
       addressRegion: "Gauteng",
       postalCode: "2153",
       addressCountry: "ZA",
-    },
-    geo: {
-      latitude: "-26.029360804024147",
-      longitude: "27.983472357670315",
     },
     openingHours: [
       "Mo-Fr 08:00-18:30",
