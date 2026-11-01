@@ -340,6 +340,6 @@ legal: {
 },
   },
   social: [
-    { name: "WhatsApp", href: "https://wa.me/27829502858", icon: "whatsapp" },
+    { name: "WhatsApp", url: "https://wa.me/27829502858?text=Hi%2C+I%27d+like+to+book+a+driving+lesson", icon: "whatsapp" },
   ],
 };

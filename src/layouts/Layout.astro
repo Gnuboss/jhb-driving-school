@@ -122,9 +122,10 @@ const GA_ID = "G-DC3762M625";
 					<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
 					<script is:inline define:vars={{ GA_ID }}>
 						window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag('js', new Date());
-						gtag('config', GA_ID);
+						// Global, so the click-tracking script and thank-you page can send events
+						window.gtag = function () { window.dataLayer.push(arguments); };
+						window.gtag('js', new Date());
+						window.gtag('config', GA_ID);
 					</script>
 				</>
 			)
@@ -140,6 +141,41 @@ const GA_ID = "G-DC3762M625";
 		<main>
 			<slot />
 		</main>
+		<!-- GA4 event tracking: phone taps and WhatsApp taps (no-op until the GA tag has loaded) -->
+		<script>
+			import { topBar } from "@/content/content";
+
+			const names: Record<string, string> = Object.fromEntries(
+				topBar.contacts.map((c) => [c.href, c.name]),
+			);
+
+			const placement = (el: Element) => {
+				if (el.closest('nav[aria-label="Call us"]')) return "top_bar";
+				if (el.closest("header")) return "header";
+				if (el.closest("footer")) return "footer";
+				return el.closest("section[id]")?.id ?? "page";
+			};
+
+			document.addEventListener("click", (event) => {
+				const link = (event.target as Element | null)?.closest?.("a[href]");
+				const gtag = (window as any).gtag;
+				if (!link || typeof gtag !== "function") return;
+
+				const href = link.getAttribute("href") ?? "";
+				if (href.startsWith("tel:")) {
+					gtag("event", "phone_click", {
+						contact_name: names[href] ?? "unknown",
+						link_location: placement(link),
+						transport_type: "beacon",
+					});
+				} else if (href.includes("wa.me")) {
+					gtag("event", "whatsapp_click", {
+						link_location: placement(link),
+						transport_type: "beacon",
+					});
+				}
+			});
+		</script>
 	</body>
 </html>
 
