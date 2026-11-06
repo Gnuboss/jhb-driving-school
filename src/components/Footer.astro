@@ -4,7 +4,7 @@ import Logo from "./Logo.astro";
 import SocialIcon from "./SocialIcon.astro";
 
 const { name, description } = siteConfig;
-const { sections, copyright, social } = footer;
+const { sections, copyright, legalLinks, social } = footer;
 const { quickLinks, legal } = sections;
 ---
 
@@ -61,8 +61,18 @@ const { quickLinks, legal } = sections;
 		<!-- Bottom Section -->
 		<div class="flex flex-col md:flex-row items-center justify-between gap-4">
 			<!-- Copyright -->
-			<p class="text-sm text-muted-foreground">
+			<p class="text-center text-sm text-muted-foreground md:text-left">
 				{copyright}
+				{
+					legalLinks.map((link) => (
+						<>
+							<span aria-hidden="true" class="mx-1.5">|</span>
+							<a href={link.href} class="hover:text-foreground hover:underline">
+								{link.label}
+							</a>
+						</>
+					))
+				}
 			</p>
 
 			<!-- Social Media Links (optional) -->

@@ -316,6 +316,11 @@ export const faq = {
 // -----------------------------------------------------------
 export const footer = {
   copyright: `© ${new Date().getFullYear()} Hey! Another Driving School. All rights reserved.`,
+  // Shown after the copyright line, separated by "|"
+  legalLinks: [
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Cookie Settings", href: "#cookie-settings" },
+  ],
   sections: {
     quickLinks: {
       title: "Quick links",
@@ -332,8 +337,6 @@ legal: {
     { label: "Jacques — 082 950 2858", href: "tel:+27829502858" },
     { label: "Sharon — 071 183 3500",  href: "tel:+27711833500" },
     { label: "info@jhbdrivingschool.co.za", href: "mailto:info@jhbdrivingschool.co.za" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Cookie settings", href: "#cookie-settings" },
   ],
 },
   },
