@@ -1,0 +1,65 @@
+<div
+	id="consent-banner"
+	role="region"
+	aria-label="Cookie notice"
+	hidden
+	class="fixed inset-x-0 bottom-0 z-[60] border-t border-border bg-foreground text-background shadow-lg"
+>
+	<div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+		<p class="text-sm leading-relaxed">
+			We use analytics cookies to see how the site is used. They're only set if you accept.
+			<a href="/privacy" class="font-semibold underline">Privacy policy</a>
+		</p>
+		<div class="flex shrink-0 items-center gap-3">
+			<button
+				id="consent-decline"
+				type="button"
+				class="rounded-md border border-background/40 px-4 py-2 text-sm font-semibold hover:bg-background/10"
+			>
+				Decline
+			</button>
+			<button
+				id="consent-accept"
+				type="button"
+				class="rounded-md bg-background px-4 py-2 text-sm font-semibold text-foreground hover:opacity-90"
+			>
+				Accept
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const KEY = "analytics-consent";
+	const banner = document.getElementById("consent-banner");
+
+	const read = () => {
+		try {
+			return localStorage.getItem(KEY);
+		} catch {
+			return null;
+		}
+	};
+	const save = (value: "granted" | "denied") => {
+		try {
+			localStorage.setItem(KEY, value);
+		} catch {
+			/* storage blocked: choice only lasts for this page view */
+		}
+		(window as any).gtag?.("consent", "update", { analytics_storage: value });
+		if (banner) banner.hidden = true;
+	};
+
+	if (banner && !read()) banner.hidden = false;
+
+	document.getElementById("consent-accept")?.addEventListener("click", () => save("granted"));
+	document.getElementById("consent-decline")?.addEventListener("click", () => save("denied"));
+
+	// Footer "Cookie settings" link reopens the notice so people can change their choice
+	document.addEventListener("click", (event) => {
+		const link = (event.target as Element | null)?.closest?.('a[href="#cookie-settings"]');
+		if (!link || !banner) return;
+		event.preventDefault();
+		banner.hidden = false;
+	});
+</script>

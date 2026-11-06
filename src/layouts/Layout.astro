@@ -1,4 +1,5 @@
 ---
+import ConsentBanner from "@/components/ConsentBanner.astro";
 import { faq, siteConfig, topBar } from "@/content/content";
 import "@/styles/starwind.css";
 
@@ -132,6 +133,18 @@ const GA_ID = "G-DC3762M625";
 						window.dataLayer = window.dataLayer || [];
 						// Global, so the click-tracking script and thank-you page can send events
 						window.gtag = function () { window.dataLayer.push(arguments); };
+						// POPIA: no analytics cookies until the visitor accepts (Google Consent Mode)
+						window.gtag('consent', 'default', {
+							analytics_storage: 'denied',
+							ad_storage: 'denied',
+							ad_user_data: 'denied',
+							ad_personalization: 'denied',
+						});
+						try {
+							if (localStorage.getItem('analytics-consent') === 'granted') {
+								window.gtag('consent', 'update', { analytics_storage: 'granted' });
+							}
+						} catch (e) {}
 						window.gtag('js', new Date());
 						window.gtag('config', GA_ID);
 					</script>
@@ -184,6 +197,7 @@ const GA_ID = "G-DC3762M625";
 				}
 			});
 		</script>
+		<ConsentBanner />
 	</body>
 </html>
 

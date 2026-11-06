@@ -332,6 +332,8 @@ legal: {
     { label: "Jacques — 082 950 2858", href: "tel:+27829502858" },
     { label: "Sharon — 071 183 3500",  href: "tel:+27711833500" },
     { label: "info@jhbdrivingschool.co.za", href: "mailto:info@jhbdrivingschool.co.za" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Cookie settings", href: "#cookie-settings" },
   ],
 },
   },

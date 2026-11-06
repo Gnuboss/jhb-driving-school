@@ -58,6 +58,19 @@ const { headline, description, button } = cta;
     aria-label="Phone number"
     required
   />
+  <label class="flex items-start gap-3 text-left text-sm text-muted-foreground">
+    <input
+      type="checkbox"
+      name="popia_consent"
+      value="Agreed to privacy policy"
+      class="mt-1 h-4 w-4 shrink-0 rounded border-input accent-primary"
+      required
+    />
+    <span>
+      I agree to Hey! Another Driving School using my details to contact me about driving lessons, as set
+      out in the <a href="/privacy" class="font-semibold text-foreground underline">privacy policy</a>.
+    </span>
+  </label>
   <Button type="submit" variant="primary" size="lg" class="w-full">
     {button.label}
   </Button>
